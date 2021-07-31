@@ -52,6 +52,7 @@ export default class DiscussionModel extends BaseModel
     @group().discussionPrivacyOptions != 'public_only'
 
   relationships: ->
+    @hasMany 'comments', sortBy: 'createdAt', sortDesc: true, find: {discardedAt: null}
     @hasMany 'polls', sortBy: 'createdAt', sortDesc: true, find: {discardedAt: null}
     @belongsTo 'group'
     @belongsTo 'author', from: 'users'
@@ -100,6 +101,15 @@ export default class DiscussionModel extends BaseModel
 
   groupName: ->
     (@group() || {}).name
+
+  hasComments: ->
+    some @comments()
+
+  lastComment: ->
+    head @comments()
+
+  lastUserComment: ->
+    @lastComment().author()
 
   activePolls: ->
     filter @polls(), (poll) ->

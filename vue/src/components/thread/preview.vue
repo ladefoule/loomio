@@ -40,7 +40,7 @@ export default
 <template lang="pug">
 v-list-item.thread-preview.thread-preview__link(:class="{'thread-preview--unread-border': thread.isUnread()}" :to='urlFor(thread)')
   v-list-item-avatar
-    user-avatar(v-if='!thread.activePoll()', :user='thread.author()', size='medium' no-link)
+    user-avatar(v-if='!thread.activePoll()', :user='thread.lastComment() ? thread.lastUserComment() : thread.author()', size='medium' no-link)
     poll-common-chart-preview(v-if='thread.activePoll()', :poll='thread.activePoll()')
   v-list-item-content
     v-list-item-title(style="align-items: center")
