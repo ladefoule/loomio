@@ -25,6 +25,7 @@ class DiscussionReader < ApplicationRecord
 
   update_counter_cache :discussion, :seen_by_count
   update_counter_cache :discussion, :members_count
+  update_counter_cache :discussion, :comments_count
 
   def self.for(user:, discussion:)
     if user&.is_logged_in?
